@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Font Book                                                                   #
+# Font Book
 ###############################################################################
 
 # Preview type and mode
@@ -18,7 +18,7 @@ defaults write com.apple.FontBook FBResolveByMovingToTrashKey -bool true
 # Default sample font size
 defaults write com.apple.FontBook FBSampleSize -int 18
 
-# Default Install Loction
+# Default Install Location
 # 1 : Computer
 # 3 : User
 defaults write com.apple.FontBook FBDefaultInstallDomainRef -int 3

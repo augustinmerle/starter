@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# iCloud
+# iTunes
 ###############################################################################
 
-# Save to iCloud by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool true
+# Don't automatically sync connected devices
+defaults write com.apple.itunes dontAutomaticallySyncIPods -bool true

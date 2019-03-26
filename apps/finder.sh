@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Finder                                                                      #
+# Finder
 ###############################################################################
 
 # Create user `Sites` directory
@@ -66,8 +66,9 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 # Delay for spring loaded directories
 defaults write NSGlobalDomain com.apple.springing.delay -float 0
 
-# Writing of .DS_Store files on network volumes
+# Writing of .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify        -bool true
@@ -108,6 +109,9 @@ done
 # to ensure settings are applied for every directory
 # sudo find / -name ".DS_Store" --delete
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # View Options
 # ColumnShowIcons    : Show preview column

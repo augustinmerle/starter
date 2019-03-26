@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Keyboard                                                                    #
+# Keyboard
 ###############################################################################
 
 # Disable press-and-hold for keys in favor of key repeat
@@ -41,11 +41,17 @@ defaults write NSGlobalDomain com.apple.keyboard.fnState -bool false
 # Use smart quotes
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
+# Set Double and Single quotes
+defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"'\''"'
+
 # Use smart dashes
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-# Set Double and Single quotes
-defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"'\''"'
+# Disable automatic period substitution
+#defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Disable automatic capitalization as it’s annoying when typing code
+#defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # Correct spelling automatically
 # defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -83,8 +89,15 @@ defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool false
 defaults write com.apple.assistant.support "Dictation Enabled" -bool true
 defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \
   DictationIMMasterDictationEnabled -bool true
+defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \ DictationIMIntroMessagePresented -bool true
 
 # Use Enhanced Dictation
 # Allows offline use and continuous dictation with live feedback
-defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \
-  DictationIMUseOnlyOfflineDictation -bool true
+if [ -d '/System/Library/Speech/Recognizers/SpeechRecognitionCoreLanguages/en_US.SpeechRecognition' ]; then
+  defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \
+     DictationIMPresentedOfflineUpgradeSuggestion -bool true
+  defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \
+    DictationIMSIFolderWasUpdated -bool true
+  defaults write com.apple.speech.recognition.AppleSpeechRecognition.prefs \
+    DictationIMUseOnlyOfflineDictation -bool true
+fi

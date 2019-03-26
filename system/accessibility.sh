@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Accessibility                                                               #
+# Accessibility
 ###############################################################################
 
 # Enable access for assistive devices
@@ -57,21 +57,24 @@ defaults write com.apple.speech.synthesis.general.prefs SpokenUIUseSpeakingHotKe
 # -----------+-----+------
 # 1835364215 | 201 | Alex
 # 1734437985 | 100 | Bruce
+defaults write com.apple.speech.voice.prefs VisibleIdentifiers \
+  '{ "com.apple.speech.synthesis.voice.Alex" = 1; }'
 defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1835364215
-defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 202
+defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 201
 defaults write com.apple.speech.voice.prefs SelectedVoiceName -string "Alex"
 
 # Speaking Rate
-# Set as a multidimensional array, the first value is the SelectedVoiceCreator
-# the second value is the SelectedVoiceID, and the thrid value is the speaking rate
+# Set as a multidimensional array:
+#   The 1st value is the SelectedVoiceCreator
+#   The 2nd value is the SelectedVoiceID
+#   The 3rd value is the speaking rate
 # Slow   : 90
 # Normal : 175
 # Fast   : 350
-/usr/libexec/PlistBuddy -x                                 \
-    -c "Delete :VoiceRateDataArray"                        \
-    -c "Add    :VoiceRateDataArray     array"              \
-    -c "Add    :VoiceRateDataArray:0   array"              \
-    -c "Add    :VoiceRateDataArray:0:0 integer 1835364215" \
-    -c "Add    :VoiceRateDataArray:0:1 integer 202"        \
-    -c "Add    :VoiceRateDataArray:0:2 integer 350"        \
-    ~/Library/Preferences/com.apple.speech.voice.prefs.plist
+plutil -replace VoiceRateDataArray -json '[
+  [
+    1835364215,
+    201,
+    350
+  ]
+]' ~/Library/Preferences/com.apple.speech.voice.prefs.plist

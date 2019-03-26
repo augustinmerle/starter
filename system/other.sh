@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Other                                                                       #
+# Other
 ###############################################################################
 
 # Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-    defaults write "${domain}" dontAutoLoad -array \
-        "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-        "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-        "/System/Library/CoreServices/Menu Extras/User.menu"
-done
+defaults -currentHost write dontAutoLoad -array \
+    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+    "/System/Library/CoreServices/Menu Extras/User.menu"
 defaults write com.apple.systemuiserver menuExtras -array \
     "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+    "/System/Library/CoreServices/Menu Extras/VPN.menu" \
+    "/System/Library/CoreServices/Menu Extras/Displays.menu" \
     "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
     "/System/Library/CoreServices/Menu Extras/Battery.menu" \
     "/System/Library/CoreServices/Menu Extras/Clock.menu"
@@ -32,9 +32,6 @@ defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-
-# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -84,12 +81,15 @@ defaults write com.apple.screencapture name -string "screen"
 
 # Randomize screenshot names
 # @link http://blog.stefanxo.com/2014/02/random-screenshot-names-on-mac-os-x/
-#( crontab -l 2>/dev/null; \
-#  echo "* * * * * openssl rand -base64 5 | base64 | cut -c1-5 | xargs defaults write com.apple.screencapture name" ) \
-#  | crontab -
+#cron_entry='* * * * * openssl rand -base64 5 | base64 | cut -c1-5 | xargs defaults write com.apple.screencapture name'
+#if ! crontab -l | fgrep "$cron_entry" >/dev/null; then
+#  (crontab -l 2>/dev/null; echo "$cron_entry") | \
+#    crontab -
+#fi
 
 # Screenshot filename format.
 # WARNING: This approach is *dangerous*, as it modifies core system files.
+#  SIP must be disabled for this method to work.
 # NOTE: This approach makes a backup of system files.
 # TIP: A better approach is to use an Automator workflow.
 #   %@ %@ at %@:
@@ -109,25 +109,14 @@ defaults write com.apple.screencapture name -string "screen"
 # Connecting camera opens (path to application, or '' if no application)
 defaults -currentHost write com.apple.ImageCapture2 HotPlugActionPath -string ''
 
-# Link hidden Applications
-hidden_apps=(
-  'Archive Utility'
-  'Directory Utility'
-  'Screen Sharing'
-  'Network Utility'
-  'Wireless Diagnostics'
-  'Feedback Assistant'
-  'RAID Utility'
-  'System Image Utility'
-)
-
-for app in "${hidden_apps[@]}"; do
-  sudo ln -s "/System/Library/CoreServices/Applications/${app}.app" \
-             "/Applications/Utilities/${app}.app"
+# Link hidden applications
+for app in /System/Library/CoreServices/Applications/* \
+           /Applications/Xcode.app/Contents/Applications/* \
+           /Applications/Xcode.app/Contents/Developer/Applications/*; do
+  sudo ln -s "$app" /Applications/Utilities/
 done
 
 hidden_apps=(
-  'Ticket Viewer'
   'Network Diagnostics'
 )
 
@@ -136,15 +125,43 @@ for app in "${hidden_apps[@]}"; do
              "/Applications/Utilities/${app}.app"
 done
 
- # Link hidden prefPanes
+# Link hidden prefPanes
 sudo ln -s '/System/Library/CoreServices/Applications/Archive Utility.app/Contents/Resources/Archives.prefPane' \
            '/Library/PreferencePanes/Archives.prefPane'
 
 # Link hidden command line tools
 sudo ln -s '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport' \
-           '/usr/sbin/airport'
+           '/usr/local/bin/airport'
 sudo ln -s '/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc' \
            '/usr/local/bin/jsc'
 
+# Link hidden fonts
+sudo ln -s /System/Library/PrivateFrameworks/CoreRecognition.framework/Resources/Fonts/ \
+  /Library/Fonts/CoreRecognition
+
 # Enable Folder Actions
 defaults write com.apple.FolderActionsDispatcher folderActionsEnabled -bool false
+
+# Enable locate command and build locate database
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+
+###############################################################################
+# Default Applications
+#
+# This is equivalent to the "Open with…" command in Finder.
+# Default applications should be handled within each application's
+# configuration using the `duti` package installed via Homebrew.
+#
+# The below outlines an alternative solution for configuring
+# default applications.
+###############################################################################
+
+# defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers \
+#   -array-add "{LSHandlerContentType=${content_ype};LSHandlerRoleAll=${bundle_id};}"
+
+if [ -x "/usr/local/bin/duti" && "${HOME}/.duti"]; then
+  /usr/local/bin/duti "${HOME}/.duti"
+fi
+
+# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user

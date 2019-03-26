@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# iCloud
+# ForkLift
 ###############################################################################
 
-# Save to iCloud by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool true
+# Enable ForkLift Mini
+xattr -drs com.apple.quarentine /Applications/ForkLift.app

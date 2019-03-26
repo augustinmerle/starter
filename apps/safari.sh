@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Safari & WebKit                                                             #
+# Safari & WebKit
 ###############################################################################
 
 # General
@@ -30,6 +30,11 @@ defaults write com.apple.Safari HistoryAgeInDaysLimit -int 31
 
 # Save downloded files to
 defaults write com.apple.Safari DownloadsPath -string '~/Downloads'
+
+# Save format
+# 0: Page Source
+# 1: Web Archive
+defaults write com.apple.Safari SavePanelFileFormat -int 0
 
 # Remove downloads list items
 # 0: Manually
@@ -144,11 +149,16 @@ defaults write com.apple.Safari ExtensionsEnabled -bool true
 # Show full URL
 # defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool false
 
-# Stop internet plug-ins to save power
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PlugInSnapshottingEnabled -bool true
-
 # Press Tab to highlight each item on a webpage
 defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+
+defaults write com.apple.Safari ReadingListSaveArticlesOfflineAutomatically -bool true
+
+# Save article for offline reading automatically
+defaults write com.apple.Safari ReadingListSaveArticlesOfflineAutomatically -bool true
+
+# Stop internet plug-ins to save power
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PlugInSnapshottingEnabled -bool true
 
 # Set default encoding
 defaults write com.apple.Safari WebKitDefaultTextEncodingName -string 'utf-8'
@@ -163,7 +173,7 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 ###############################################################################
 
 # Show bookmarks bar
-defaults write com.apple.Safari ShowFavoritesBar -bool false
+defaults write com.apple.Safari ShowFavoritesBar-v2 -bool false
 
 # Thumbnail cache for History and Top Sites
 #defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
@@ -187,8 +197,17 @@ defaults write com.apple.Safari AlwaysShowTabBar -bool false
 # Show status bar
 defaults write com.apple.Safari ShowStatusBar -bool true
 
+# Disable auto-playing video
+#defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
+#defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
+#defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+#defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
+
 # Disable Webkit Nightly start page
 defaults write org.webkit.nightly.WebKit StartPageDisabled -bool true
+
+# Always show toolbar in full screen
+defaults write com.apple.Safari AutoShowToolbarInFullScreen -bool false
 
 # Toggle the toolbar with `⌘⌥T`
 defaults write com.apple.Safari NSUserKeyEquivalents -dict-add 'Hide Toolbar' '@~t'

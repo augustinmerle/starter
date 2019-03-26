@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Terminal                                                                    #
+# Terminal
 ###############################################################################
+
+# Enable in Accessiblity Database
+#sudo tccutil -e com.apple.Terminal
+
+# Enable Secure Keyboard Entry in Terminal.app
+# https://security.stackexchange.com/a/47786/8918
+defaults write com.apple.terminal SecureKeyboardEntry -bool true
+
+# Disable line marks
+defaults write com.apple.Terminal ShowLineMarks -bool false
 
 # Only use UTF-8 in Terminal
 defaults write com.apple.terminal StringEncodings -array 4
