@@ -52,16 +52,16 @@ brew "xmlstarlet"
 # Image tools
 brew "advancecomp"
 brew "apngasm"
-brew "joeyhoer/extras/apngdis"
-brew "joeyhoer/extras/crunchme"
-brew "joeyhoer/extras/cryopng"
-brew "joeyhoer/extras/cryozopflipng"
-brew "joeyhoer/extras/defluff"
+#brew "joeyhoer/extras/apngdis"
+#brew "joeyhoer/extras/crunchme"
+#brew "joeyhoer/extras/cryopng"
+#brew "joeyhoer/extras/cryozopflipng"
+#brew "joeyhoer/extras/defluff"
 brew "ffmpeg", args: ["with-libvpx", "with-webp", "with-x265"]
-brew "joeyhoer/extras/flif", args: ["with-apng", "with-gif"]
-brew "joeyhoer/extras/gifify", args: ["HEAD"]
+#brew "joeyhoer/extras/flif", args: ["with-apng", "with-gif"]
+#brew "joeyhoer/extras/gifify", args: ["HEAD"]
 brew "gifsicle"
-brew "joeyhoer/extras/gifv", args: ["HEAD"]
+#brew "joeyhoer/extras/gifv", args: ["HEAD"]
 brew "graphicsmagick"
 brew "guetzli"
 brew "icoutils"
@@ -71,33 +71,33 @@ brew "jhead"
 brew "jpeg"
 brew "jpeg-archive"
 brew "jpegoptim"
-brew "joeyhoer/extras/jpegquality", args: ["HEAD"]
+#brew "joeyhoer/extras/jpegquality", args: ["HEAD"]
 brew "jpegrescan"
 brew "libbpg"
-brew "joeyhoer/extras/mediancut-posterizer"
+#brew "joeyhoer/extras/mediancut-posterizer"
 brew "mozjpeg"
-brew "joeyhoer/extras/nice-screenshot", args: ["HEAD"]
+#brew "joeyhoer/extras/nice-screenshot", args: ["HEAD"]
 brew "optipng"
 brew "perceptualdiff"
 brew "pngcheck"
 brew "pngcrush"
 brew "pngnq"
-brew "joeyhoer/extras/pngnq-s9"
-brew "joeyhoer/extras/pngout"
+#brew "joeyhoer/extras/pngnq-s9"
+#brew "joeyhoer/extras/pngout"
 brew "pngquant"
-brew "joeyhoer/extras/pngthermal"
-brew "joeyhoer/extras/pngwolf-zopfli", args: ["HEAD"]
-brew "joeyhoer/extras/video-poster", args: ["HEAD"]
+#brew "joeyhoer/extras/pngthermal"
+#brew "joeyhoer/extras/pngwolf-zopfli", args: ["HEAD"]
+#brew "joeyhoer/extras/video-poster", args: ["HEAD"]
 brew "webp"
 
 # Compression tools
-brew "brotli"
+#brew "brotli"
 brew "bzip2"
-brew "cabextract"
+#brew "cabextract"
 brew "gzip"
-brew "joeyhoer/extras/gzthermal"
-brew "joeyhoer/extras/huffmix"
-brew "joeyhoer/extras/kzipmix"
+#brew "joeyhoer/extras/gzthermal"
+#brew "joeyhoer/extras/huffmix"
+#brew "joeyhoer/extras/kzipmix"
 brew "lbzip2"
 brew "lz4"
 brew "p7zip"
@@ -120,7 +120,7 @@ brew "wifi-password"
 # Server stack
 # brew "httpd"
 brew "dnsmasq"
-brew "percona-server"
+#brew "percona-server"
 brew "php"
 
 # Programming languages
@@ -136,39 +136,39 @@ brew "node" # Also installs `npm`
 brew "closure-compiler"
 brew "closure-stylesheets"
 brew "htmlcompressor", args: ["with-yuicompressor"]
-brew "lynx"
+#brew "lynx"
 cask "phantomjs"
-brew "slimerjs"
+#brew "slimerjs"
 brew "webkit2png"
 brew "yuicompressor"
 brew "sass/sass/sass"
 
 # Network tools
-brew "tor"
-brew "namebench"
+#brew "tor"
+#brew "namebench"
 brew "nmap"
 brew "speedtest_cli"
 
 # Security tools
-brew "foremost"
-brew "hashpump"
+#brew "foremost"
+#brew "hashpump"
 brew "sqlmap"
 
 # Install GUI applications
 cask "adapter"
 cask "adobe-creative-cloud"
 cask "airdisplay"
-cask "airserver"
+#cask "airserver"
 cask "atom"
-cask "bartender"
-cask "boom"
-cask "colors"
+#cask "bartender"
+#cask "boom"
+#cask "colors"
 cask "dropbox"
 cask "forklift"
-cask "imagealpha"
-cask "imageoptim"
-cask "iterm2-beta"
-cask "itsycal"
+#cask "imagealpha"
+#cask "imageoptim"
+#cask "iterm2-beta"
+#cask "itsycal"
 cask "kaleidoscope"
 cask "osxfuse"
 cask "password-assistant"
@@ -185,14 +185,15 @@ cask "wkhtmltopdf"
 cask "safari-technology-preview"
 cask "google-chrome"
 cask "google-chrome-canary"
-cask "opera"
-cask "opera-beta"
-cask "firefox"
+#cask "opera"
+#cask "opera-beta"
+#cask "firefox"
 
 # Virtulization applications
 cask "vmware-fusion"
 cask "vagrant"
 cask "vagrant-manager"
+cask "virtualbox"
 
 # Preference Panes
 cask "hosts"
@@ -219,19 +220,19 @@ cask "font-comic-neue"
 cask "font-dejavu-sans"
 cask "font-league-gothic"
 cask "font-liberation-sans"
-cask "joeyhoer/extras/font-microsoft-office"
-cask "joeyhoer/extras/font-san-francisco-compact"
+#cask "joeyhoer/extras/font-microsoft-office"
+#cask "joeyhoer/extras/font-san-francisco-compact"
 cask "font-symbola"
 
 # MAS applications
 # Get a list of installed MAS apps with:
 # `brew bundle dump --file=- | egrep ^mas`
-mas "1Blocker", id: 1107421413
-mas "Byword", id: 420212497
+#mas "1Blocker", id: 1107421413
+#mas "Byword", id: 420212497
 mas "Divvy", id: 413857545
 mas "Kaleidoscope", id: 587512244
-mas "Marked 2", id: 890031187
-mas "xScope", id: 889428659
+#mas "Marked 2", id: 890031187
+#mas "xScope", id: 889428659
 
 # Apple MAS applications
 mas "Keynote", id: 409183694
